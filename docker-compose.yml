@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  ui:
+    container_name: react-container
+    build: ./ui-client
+    stdin_open: true
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+  api:
+    container_name: node-container
+    build: ./api-client
+    environment:
+      - DATABASE_HOST=mysql-dev
+    ports:
+      - "8080:3001"
+    links:
+      - mysql-dev
+    depends_on:
+      - mysql-dev
+    restart: always
+    command: npm start
+
+  mysql-dev:
+    container_name: mysql-container
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: menu
+    ports:
+      - "6603:3306"
+    volumes:
+      - /var/mysql:/var/lib/mysql
