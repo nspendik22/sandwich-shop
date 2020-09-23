@@ -1,13 +1,38 @@
 const sql = require("./db.js");
 
 // constructor
-const Ingredient = function(menu_item) {
-  this.id = menu_item.id;
-  this.name = menu_item.name;
-  this.description = menu_item.description;
-  this.price = menu_item.price;
+const Ingredient = function(ingredient) {
+  this.id = ingredient.id;
+  this.name = ingredient.name;
+  this.unit = ingredient.unit;
 };
 
+/**
+ * Query the MySQL database to create an ingredient
+ *
+ * @param newIngredient
+ * @param result
+ */
+
+Ingredient.create = (newIngredient, result) => {
+  sql.query("INSERT INTO ingredients SET ?", newIngredient, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("Created a menu item: ", { id: res.insertId, ...newIngredient });
+    result(null, { id: res.insertId, ...newIngredient });
+  });
+};
+
+/**
+ * Query the MySQL database to find an ingredient by a given ID
+ *
+ * @param ingredient_id
+ * @param result
+ */
 
 Ingredient.findById = (ingredient_id, result) => {
   sql.query(`SELECT * FROM ingredients WHERE id = ${ingredient_id}`, (err, res) => {
@@ -18,7 +43,7 @@ Ingredient.findById = (ingredient_id, result) => {
     }
 
     if (res.length) {
-      console.log("found ingredient: ", res[0]);
+      console.log("Found an ingredient: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -26,6 +51,12 @@ Ingredient.findById = (ingredient_id, result) => {
     result({ kind: "not_found" }, null);
   });
 };
+
+/**
+ * Query the MySQL database to return all of the ingredients
+ *
+ * @param result
+ */
 
 Ingredient.getAll = result => {
   sql.query("SELECT * FROM ingredients", (err, res) => {
@@ -35,9 +66,29 @@ Ingredient.getAll = result => {
       return;
     }
 
-    console.log("ingredients: ", res);
+    console.log("Ingredients: ", res);
     result(null, res);
   });
 };
+
+/**
+ * Query the MySQL database to bring back the items whose name contains the value passed in the query parameter
+ *
+ * @param query
+ * @param result
+ */
+
+Ingredient.searchItems = (query, result) => {
+  sql.query(`SELECT * FROM ingredients WHERE name like '%${query}%'`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log(`Search results for: ${query}`, res);
+    result(null, res);
+  });
+}
 
 module.exports = Ingredient;

@@ -1,5 +1,12 @@
 const Recipe = require("../models/recipies.model.js");
 
+/**
+ * Find a recipe given by a menu item Id, from the MySQL database.
+ *
+ * @param req
+ * @param res
+ */
+
 exports.findOne = (req, res) => {
     Recipe.findById(req.params.sandwichId, (err, data) => {
         if (err) {
