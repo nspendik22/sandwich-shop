@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import history from './../history';
 
-const apiUrl = `http://localhost:8080`;
+const apiUrl = `localhost:8080/sandwich-shop/v1`;
 
 export default class Menu extends Component {
     state = {

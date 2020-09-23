@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  
   ui:
     container_name: react-container
     build: ./ui-client
@@ -23,6 +24,9 @@ services:
       - mysql-dev
     restart: always
     command: npm start
+    #command: nodemon server.js
+   
+
 
   mysql-dev:
     container_name: mysql-container

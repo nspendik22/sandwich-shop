@@ -5,6 +5,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install --silent
+
+RUN npm install axios nodemon react-bootstrap-validation react-router-dom --save
+
 # Copy app source code
 COPY . .
 

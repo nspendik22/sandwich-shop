@@ -1,6 +1,6 @@
 # Sandwich Shop
 
-> A Sandwoch Shop App that uses Docker, Node.js and React
+> A Sandwich Shop App that uses Docker, Node.js and React
 
 ## Quick Start
 
@@ -16,13 +16,19 @@ docker-compose down
 docker-compose build --no-cache
 ```
 ## Extra Notes
-* App uses default 6603 database connectivity port.
-* Create database with the name 'menu'.
-* Create the following tables
-    - menu_items => Contains the sandwiches
-    - ingredients => Contains the ingredients
-    - recipies => Contains the recipes to create each sandwich
-    - inventory => holds the inventory of the ingredients
+* React app listens on: 
+```bash 
+localhost:3000/ 
+```
+* API listens on: 
+```bash 
+localhost:8080/ 
+```
+
+* Example API request: 
+```bash
+ localhost:8080/sandwich-shop/v1/menu_items 
+```
 
 
 
