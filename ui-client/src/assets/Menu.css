@@ -74,6 +74,11 @@ p {
 	transition: .4s;
 }
 
-
+.menu_style1:hover {
+	cursor: pointer;
+}
+.menu_content h4, .menu_content p {
+	text-align: left;
+}
 
 
