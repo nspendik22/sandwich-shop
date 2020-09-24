@@ -24,7 +24,6 @@ services:
       - mysql-dev
     restart: always
     command: npm start
-    #command: nodemon server.js
    
 
 

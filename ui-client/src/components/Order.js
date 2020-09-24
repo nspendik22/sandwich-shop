@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 
-const apiUrl = `http://localhost:8080`;
+const apiUrl = `http://localhost:8080/sandwich-shop/v1`;
 
 class Order extends Component {
 
@@ -15,7 +15,7 @@ class Order extends Component {
         const { id } = this.props.match.params
         const res = await axios.get(apiUrl + '/recipies/' + id);
         this.setState({
-          recipe: res.data
+          recipe: (res.data).concat(res.data.slice().reverse())
         });
       }
     
@@ -28,7 +28,7 @@ class Order extends Component {
             <div class="sandwich-wrapper">
                 {this.state.recipe.map(item => (
                     <p>
-                        {item.count + " " + item.unit + " of " + item.name}
+                        {item.count/2 + " " + item.unit + " of " + item.name}
                     </p>
                 ))}
             </div>

@@ -23,8 +23,6 @@ require("./routes/recipies.routes.js")(app);
 // set port, listen for requests
 
 app.listen(3001, () => {
-  console.log('Server started on port 3000 | 8080 if running on docker...');
+  console.log('Server started on port 3001 | 8080 if running on docker...');
 });
-
-module.exports = app; 
 
