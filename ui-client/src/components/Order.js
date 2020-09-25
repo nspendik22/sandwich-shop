@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
+import '../assets/Order.css';
 
 const apiUrl = `http://localhost:8080/sandwich-shop/v1`;
 

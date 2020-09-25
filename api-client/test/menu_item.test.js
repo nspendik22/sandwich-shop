@@ -1,16 +1,16 @@
-process.env.NODE_ENV = "test";
-
 const Menu_Item = require("../models/menu_item.model.js");
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
 const should = chai.should();
 
+const SERVER_URL = 'http://localhost:8080';
+
 chai.use(chaiHttp)
 
 describe('/GET menu_items', () => {
     it('it should Get all menu items', (done) => {
-        chai.request('http://localhost:8080')
+        chai.request(SERVER_URL)
         .get('/sandwich-shop/v1/menu_items')
         .end((err, res) => {
             res.should.have.status(200);
@@ -21,7 +21,7 @@ describe('/GET menu_items', () => {
 });
 describe('/GET menu_items/:id', () => {
     it('it should return the data of menu item id of 1', (done) => {
-        chai.request('http://localhost:8080')
+        chai.request(SERVER_URL)
         .get('/sandwich-shop/v1/menu_items/1')
         .end((err, res) => {
             res.should.have.status(200);
@@ -32,7 +32,7 @@ describe('/GET menu_items/:id', () => {
 });
 describe('/GET menu_items/search', () => {
     it('it should return the BLT menu item', (done) => {
-        chai.request('http://localhost:8080')
+        chai.request(SERVER_URL)
         .get('/sandwich-shop/v1/menu_items/search?query=blt')
         .end((err, res) => {
             res.should.have.status(200);
@@ -49,7 +49,7 @@ describe('/POST menu_items', () => {
             description: "A sandwich with Roast Beef, lettuce and tomato",
             price: "11.50"
         };
-        chai.request(app)
+        chai.request(SERVER_URL)
         .post('/sandwich-shop/v1/menu_items')
         .send(menu_item)
         .end((err, res) => {

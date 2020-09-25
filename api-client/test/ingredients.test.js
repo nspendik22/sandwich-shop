@@ -1,16 +1,16 @@
-process.env.NODE_ENV = "test";
-
 const Ingredients = require("../models/ingredients.model.js");
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server');
 const should = chai.should();
 
+const SERVER_URL = 'http://localhost:8080';
+
 chai.use(chaiHttp)
 
 describe('/GET ingredients', () => {
     it('it should Get all of the ingredients', (done) => {
-        chai.request('http://localhost:8080')
+        chai.request(SERVER_URL)
         .get('/sandwich-shop/v1/ingredients')
         .end((err, res) => {
             res.should.have.status(200);
@@ -21,7 +21,7 @@ describe('/GET ingredients', () => {
 });
 describe('/GET ingredients/:id', () => {
     it('it should return the data of ingredients id of 1', (done) => {
-        chai.request('http://localhost:8080')
+        chai.request(SERVER_URL)
         .get('/sandwich-shop/v1/ingredients/1')
         .end((err, res) => {
             res.should.have.status(200);
@@ -32,7 +32,7 @@ describe('/GET ingredients/:id', () => {
 });
 describe('/GET ingredients/search', () => {
     it('it should return the tomato', (done) => {
-        chai.request('http://localhost:8080')
+        chai.request(SERVER_URL)
         .get('/sandwich-shop/v1/ingredients/search?query=tomato')
         .end((err, res) => {
             res.should.have.status(200);
@@ -48,7 +48,7 @@ describe('/POST ingredients', () => {
             name: "BBQ Sauce",
             unit: "Ounce",
         };
-        chai.request(app)
+        chai.request(SERVER_URL)
         .post('/sandwich-shop/v1/ingredients')
         .send(menu_item)
         .end((err, res) => {
